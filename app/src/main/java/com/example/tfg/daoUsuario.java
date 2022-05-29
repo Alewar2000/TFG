@@ -12,14 +12,12 @@ public class daoUsuario {
     Usuario u;
     ArrayList<Usuario> lista;
     SQLiteDatabase sql;
-    String bd = "BDUsuarios";
-    String table= "create table if not exists usuario(id integer primary key autoincrement, correo text, password text, nombre text, apellido text, direccion text)";
+    String bd = "ecoeco.db";
 
 
     public daoUsuario(Context c){
         this.c = c;
         sql = c.openOrCreateDatabase(bd, c.MODE_PRIVATE, null);
-        sql.execSQL(table);
         u = new Usuario();
 
     }

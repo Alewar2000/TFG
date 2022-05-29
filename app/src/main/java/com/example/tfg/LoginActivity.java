@@ -38,7 +38,10 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
                 if (c.equals("")||p.equals("")){
                     Toast.makeText(this, "Campos vacios", Toast.LENGTH_SHORT).show();
                 }else if (daoUsuario.login(c,p)==1){
-                    
+                    Usuario ux = daoUsuario.getUsuario(c,p);
+                    Intent i2 = new Intent(LoginActivity.this, MainActivity.class);
+                    i2.putExtra("Id",ux.getId());
+                    startActivity(i2);
                 }else {
                     Toast.makeText(this, "Usuario no registrado", Toast.LENGTH_SHORT).show();
                 }
