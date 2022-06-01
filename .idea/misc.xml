@@ -3,6 +3,17 @@
   <component name="DesignSurface">
     <option name="filePathToZoomLevelMap">
       <map>
+        <entry key="..\:/Nuevos Proyectos Android/TFG/app/src/main/res/drawable/selector.xml" value="0.1" />
+        <entry key="..\:/Nuevos Proyectos Android/TFG/app/src/main/res/layout/activity_cart.xml" value="0.1718683197947841" />
+        <entry key="..\:/Nuevos Proyectos Android/TFG/app/src/main/res/layout/activity_login.xml" value="0.1115140525838622" />
+        <entry key="..\:/Nuevos Proyectos Android/TFG/app/src/main/res/layout/activity_main.xml" value="0.1718683197947841" />
+        <entry key="..\:/Nuevos Proyectos Android/TFG/app/src/main/res/layout/activity_product.xml" value="0.25" />
+        <entry key="..\:/Nuevos Proyectos Android/TFG/app/src/main/res/layout/activity_register.xml" value="0.1718683197947841" />
+        <entry key="..\:/Nuevos Proyectos Android/TFG/app/src/main/res/layout/activity_user.xml" value="0.1718683197947841" />
+        <entry key="..\:/Nuevos Proyectos Android/TFG/app/src/main/res/layout/fragment_home.xml" value="0.1718683197947841" />
+        <entry key="..\:/Nuevos Proyectos Android/TFG/app/src/main/res/layout/fragment_notifications.xml" value="0.1718683197947841" />
+        <entry key="..\:/Nuevos Proyectos Android/TFG/app/src/main/res/layout/fragment_settings.xml" value="0.25" />
+        <entry key="..\:/Nuevos Proyectos Android/TFG/app/src/main/res/menu/menu.xml" value="0.1718683197947841" />
         <entry key="..\:/Users/alvar/AndroidStudioProjects/TFG/app/src/main/res/drawable/button_rounded.xml" value="0.105" />
         <entry key="..\:/Users/alvar/AndroidStudioProjects/TFG/app/src/main/res/layout/activity_login.xml" value="0.22" />
         <entry key="..\:/Users/alvar/AndroidStudioProjects/TFG/app/src/main/res/layout/activity_main.xml" value="0.16502778965369816" />

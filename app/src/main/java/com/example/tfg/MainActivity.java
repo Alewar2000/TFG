@@ -4,45 +4,96 @@ import android.content.Intent;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
 import android.os.Bundle;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.navigation.NavController;
-import androidx.navigation.Navigation;
-import androidx.navigation.ui.AppBarConfiguration;
-import androidx.navigation.ui.NavigationUI;
 
-import com.example.tfg.databinding.ActivityMainBinding;
+
+
+import org.imaginativeworld.whynotimagecarousel.ImageCarousel;
+import org.imaginativeworld.whynotimagecarousel.model.CarouselItem;
+
+import java.util.ArrayList;
+import java.util.List;
 
 
 public class MainActivity extends AppCompatActivity implements View.OnClickListener {
 
+    BottomNavigationView bottomNavigationView;
 
-    private ActivityMainBinding binding;
+
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        setContentView(R.layout.activity_main);
 
-        binding = ActivityMainBinding.inflate(getLayoutInflater());
-        setContentView(binding.getRoot());
+        bottomNavigationView = findViewById(R.id.bottom_navigator);
+        bottomNavigationView.setSelectedItemId(R.id.home);
 
-        BottomNavigationView navView = findViewById(R.id.nav_view);
-        // Passing each menu ID as a set of Ids because each
-        // menu should be considered as top level destinations.
-        AppBarConfiguration appBarConfiguration = new AppBarConfiguration.Builder(
-                R.id.navigation_home, R.id.navigation_dashboard, R.id.navigation_notifications, R.id.navigation_settings)
-                .build();
-        NavController navController = Navigation.findNavController(this, R.id.nav_host_fragment_activity_main);
-        NavigationUI.setupWithNavController(binding.navView, navController);
+        bottomNavigationView.setOnNavigationItemSelectedListener(new BottomNavigationView.OnNavigationItemSelectedListener() {
+            @Override
+            public boolean onNavigationItemSelected(@NonNull MenuItem item) {
+                switch (item.getItemId()){
+                    case R.id.home:
+                        return true;
+                    case R.id.user:
+                        startActivity(new Intent(getApplicationContext(), UserActivity.class));
+                        overridePendingTransition(0,0);
+                        finish();
+                        return true;
+                    case R.id.cart:
+                        startActivity(new Intent(getApplicationContext(), CartActivity.class));
+                        overridePendingTransition(0,0);
+                        finish();
+                        return true;
+                    case R.id.create:
+                        startActivity(new Intent(getApplicationContext(), ProductActivity.class));
+                        overridePendingTransition(0,0);
+                        finish();
+                        return true;
+                }
+
+                return false;
+            }
+        });
+
+
 
         DBHelper dbHelper = new DBHelper(MainActivity.this);
-        SQLiteDatabase db = dbHelper.getWritableDatabase();
 
 
+        Intent i = new Intent(MainActivity.this, JavaIntro.class);
+        startActivity(i);
+
+        ImageCarousel carousel = findViewById(R.id.carousel);
+
+        // Register lifecycle. For activity this will be lifecycle/getLifecycle() and for fragments it will be viewLifecycleOwner/getViewLifecycleOwner().
+        carousel.registerLifecycle(getLifecycle());
+
+        List<CarouselItem> list = new ArrayList<>();
+        String imageUrl;
+        String caption;
+        list.add(
+                new CarouselItem(
+                        imageUrl = "https://images.unsplash.com/photo-1532581291347-9c39cf10a73c?w=1080",
+                        caption = "Photo by Aaron Wu on Unsplash"
+                )
+        );
+        list.add(
+                new CarouselItem(
+                        imageUrl = "https://images.unsplash.com/photo-1534447677768-be436bb09401?w=1080",
+                        caption = "Photo by Johannes Plenio on Unsplash"
+                )
+        );
+
+        carousel.addData(list);
     }
 
     @Override

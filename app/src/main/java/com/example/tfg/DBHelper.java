@@ -27,8 +27,7 @@ public class DBHelper extends SQLiteOpenHelper {
                 "(idproducto interger," +
                 " idpedido integer," +
                 " preciou integer," +
-                "cantidad integer,"+
-                " fecha text," +
+                " cantidad integer,"+
                 "PRIMARY KEY(idproducto,idpedido))");
 
         db.execSQL("create table if not exists " + TABLE_USUARIO_PEDIDO +
@@ -59,8 +58,8 @@ public class DBHelper extends SQLiteOpenHelper {
                 " descripcion text," +
                 " precio integer," +
                 " stock integer," +
-                " comentario text," +
                 " idvendedor integer, " +
+                " imagen text, " +
                 "FOREIGN KEY(id) REFERENCES " + TABLE_DETALLE_PEDIDOS +"(idproducto))");
     }
 
