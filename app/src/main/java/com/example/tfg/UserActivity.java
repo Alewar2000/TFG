@@ -14,7 +14,7 @@ import com.google.android.material.bottomnavigation.BottomNavigationView;
 public class UserActivity extends AppCompatActivity {
 
     BottomNavigationView bottomNavigationView;
-    Button btnlogin;
+    Button btnlogin, btn_productos_venta;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -58,6 +58,17 @@ public class UserActivity extends AppCompatActivity {
                 startActivity(i);
             }
         });
+
+        btn_productos_venta = findViewById(R.id.btn_productos_venta);
+        btn_productos_venta.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent i = new Intent(getApplicationContext(),ProductosVentaActivity.class);
+                startActivity(i);
+            }
+        });
+
+
 
 
 

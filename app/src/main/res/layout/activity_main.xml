@@ -64,9 +64,46 @@
         android:id="@+id/carousel"
         android:layout_width="match_parent"
         android:layout_height="256dp"
-        android:layout_marginTop="108dp"
+        android:layout_marginTop="144dp"
+        app:layout_constraintBottom_toTopOf="@+id/recyclerView2"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        tools:layout_editor_absoluteX="16dp" />
+        app:layout_constraintVertical_bias="1.0" >
+
+    </org.imaginativeworld.whynotimagecarousel.ImageCarousel>
+
+    <ImageView
+        android:id="@+id/imageView9"
+        android:layout_width="434dp"
+        android:layout_height="119dp"
+        android:layout_marginBottom="4dp"
+        app:layout_constraintBottom_toTopOf="@+id/bottom_navigator"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.521"
+        app:layout_constraintStart_toStartOf="parent"
+        app:srcCompat="@drawable/banner_2" />
+
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/recyclerView2"
+        android:layout_width="398dp"
+        android:layout_height="321dp"
+        app:layout_constraintBottom_toTopOf="@+id/imageView9"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent" />
+
+    <ImageView
+        android:id="@+id/imageView10"
+        android:layout_width="413dp"
+        android:layout_height="94dp"
+        android:layout_marginTop="40dp"
+        android:foregroundGravity="fill_horizontal|top|left|bottom|center_vertical|clip_horizontal|center|fill_vertical|clip_vertical|right|center_horizontal|fill"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/searchView"
+        app:srcCompat="@drawable/banners_ucrania" />
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>

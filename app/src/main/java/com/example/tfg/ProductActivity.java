@@ -1,25 +1,53 @@
 package com.example.tfg;
 
+import androidx.activity.result.contract.ActivityResultContracts;
 import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
+import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.content.FileProvider;
 
 import android.content.ContentValues;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.database.sqlite.SQLiteDatabase;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
+import android.media.MediaScannerConnection;
+import android.net.Uri;
 import android.os.Bundle;
+import android.os.Environment;
+import android.os.StrictMode;
+import android.provider.MediaStore;
+import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ImageButton;
+import android.widget.ImageView;
+import android.widget.Toast;
 
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 
+import java.io.File;
+
 public class ProductActivity extends AppCompatActivity {
+
+    private final String CARPETA_RAIZ="EcoEco/";
+    private final String RUTA_IMAGEN=CARPETA_RAIZ + "FotosEcoEco";
+    final int COD_SELECCIONA = 10;
+    final int COD_FOTO =20;
+
 
     BottomNavigationView bottomNavigationView;
     DBHelper dbHelper;
     Button btnInsertar;
+    ImageButton btnImagen;
     EditText etnombre, etprecio, etcantidad, etdescripcion;
+    ImageView imagen;
+    String path;
+    String Stringuri;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -32,6 +60,9 @@ public class ProductActivity extends AppCompatActivity {
         etcantidad = findViewById(R.id.et_cantidad);
         etdescripcion = findViewById(R.id.et_descripcion);
         btnInsertar = findViewById(R.id.publicarr);
+        btnImagen = findViewById(R.id.btnCargarImagen);
+        imagen = findViewById(R.id.ImagenId);
+
 
         bottomNavigationView.setOnNavigationItemSelectedListener(new BottomNavigationView.OnNavigationItemSelectedListener() {
             @Override
@@ -69,26 +100,112 @@ public class ProductActivity extends AppCompatActivity {
             añadirProducto();
             }
         });
+        btnImagen.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                cargarImagen();
+            }
+        });
+
+
 
     }
 
+    private void cargarImagen() {
+        final CharSequence[] opciones= {"Tomar foto", "Cargar Imagen", "Cancelar"};
+        final AlertDialog.Builder alertaOpciones = new AlertDialog.Builder(ProductActivity.this);
+        alertaOpciones.setTitle("Seleccione una Opción");
+        alertaOpciones.setItems(opciones, new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialogInterface, int i) {
+                if (opciones[i].equals("Tomar foto")){
+                    tomarFotografia();
+                }else {
+                    if(opciones[i].equals("Cargar Imagen")){
+                        Intent intent = new Intent(Intent.ACTION_PICK, MediaStore.Images.Media.EXTERNAL_CONTENT_URI);
+                        intent.setType("image/");
+                        startActivityForResult(intent.createChooser(intent,"Seleccionar la aplicación"),COD_SELECCIONA);
+                    }else{
+                        dialogInterface.dismiss();
+                    }
+                }
+            }
+        });
+        alertaOpciones.show();
 
 
+    }
+
+    private void tomarFotografia() {
+
+        File FileImage = new File(Environment.getDataDirectory(), RUTA_IMAGEN);
+        boolean creada = FileImage.exists();
+        String nombreImagen="";
+        if (creada==false){
+            creada= FileImage.mkdir();
+        }
+        if (creada==true){
+            //nombreImagen = (System.currentTimeMillis()/1000)+ ".jpg";
+        }
+        nombreImagen = (System.currentTimeMillis()/1000)+ ".jpg";
+        path = Environment.getDataDirectory()+File.separator+RUTA_IMAGEN+File.separator+nombreImagen;
+        path = "storage/emulated/0/DCIM/EcoEco/"+nombreImagen;
+
+        File miImagen = new File(path);
+        Uri uri = FileProvider.getUriForFile(
+                this,
+                BuildConfig.APPLICATION_ID + "." + getLocalClassName() + ".provider",
+                miImagen);
+        Intent intentt = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
+        intentt.putExtra(MediaStore.EXTRA_OUTPUT, uri);
+
+        startActivityForResult(intentt, COD_FOTO);
+
+    }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        if (resultCode==RESULT_OK){
+
+            switch (requestCode){
+                case COD_SELECCIONA:
+                    Uri miPath = data.getData();
+                    imagen.setImageURI(miPath);
+                    Stringuri = miPath.toString();
+                    break;
+                case COD_FOTO:
+                    MediaScannerConnection.scanFile(this, new String[]{path}, null, new MediaScannerConnection.OnScanCompletedListener() {
+                        @Override
+                        public void onScanCompleted(String s, Uri uri) {
+                            Log.i("Ruta de almacenamiento","Path: " + path);
+                        }
+                    });
+
+                    Bitmap bitmap = BitmapFactory.decodeFile(path);
+                    imagen.setImageBitmap(bitmap);
+
+                    break;
+            }
+
+
+        }
+    }
 
     public void añadirProducto(){
-        dbHelper = new DBHelper(ProductActivity.this);
+        dbHelper = new DBHelper(this, "ecoeco.db",null,2);
         SQLiteDatabase db = dbHelper.getWritableDatabase();
         String nombre = etnombre.getText().toString();
         Integer precio = Integer.parseInt(etprecio.getText().toString());
         Integer unidades = Integer.parseInt(etcantidad.getText().toString());
         String descripcion = etdescripcion.getText().toString();
-        //String imagen = null;
+        String imagen = Stringuri;
         Producto producto = new Producto();
         producto.setNombre(nombre);
         producto.setPrecio(precio);
         producto.setUnidades(unidades);
         producto.setDescripcion(descripcion);
-        //producto.setImagen(imagen);
+        producto.setImagen(imagen);
         producto.setIdvendedor(6);
 
         ContentValues cv = new ContentValues();
@@ -96,7 +213,7 @@ public class ProductActivity extends AppCompatActivity {
         cv.put("descripcion", producto.getDescripcion());
         cv.put("precio", producto.getPrecio());
         cv.put("stock", producto.getUnidades());
-        //cv.put("imagen", producto.getImagen());
+        cv.put("imagen", producto.getImagen());
         cv.put("idvendedor", producto.getIdvendedor());
         db.insert("producto",null, cv);
 

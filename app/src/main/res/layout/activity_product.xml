@@ -23,8 +23,8 @@
         android:id="@+id/tv_descripcion2"
         android:layout_width="95dp"
         android:layout_height="19dp"
-        android:layout_marginStart="60dp"
-        android:layout_marginTop="552dp"
+        android:layout_marginStart="56dp"
+        android:layout_marginTop="556dp"
         android:text="Galería"
         android:textColor="#4CAF50"
         android:textSize="16sp"
@@ -140,11 +140,11 @@
         app:layout_constraintTop_toBottomOf="@+id/tv_descripcion" />
 
     <ImageButton
-        android:id="@+id/imageButton"
+        android:id="@+id/btnCargarImagen"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="8dp"
-        android:layout_marginTop="12dp"
+        android:layout_marginStart="12dp"
+        android:layout_marginTop="16dp"
         app:layout_constraintStart_toEndOf="@+id/tv_descripcion2"
         app:layout_constraintTop_toBottomOf="@+id/et_descripcion"
         app:srcCompat="@drawable/ic_baseline_camera_alt_24" />
@@ -153,11 +153,24 @@
         android:id="@+id/publicarr"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginBottom="136dp"
+        android:layout_marginBottom="176dp"
         android:text="Publicar"
         app:layout_constraintBottom_toTopOf="@+id/bottom_navigator"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.496"
         app:layout_constraintStart_toStartOf="parent" />
+
+    <ImageView
+        android:id="@+id/ImagenId"
+        android:layout_width="85dp"
+        android:layout_height="86dp"
+        android:layout_marginStart="36dp"
+        android:layout_marginTop="4dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toEndOf="@+id/btnCargarImagen"
+        app:layout_constraintTop_toBottomOf="@+id/et_descripcion"
+        app:srcCompat="@drawable/noimage" />
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>

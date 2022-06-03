@@ -8,7 +8,7 @@ import androidx.annotation.Nullable;
 
 public class DBHelper extends SQLiteOpenHelper {
 
-    private static final int DATABASE_VERSION = 1;
+    private static final int DATABASE_VERSION = 2;
     private static final String DATABASE_NOMBRE = "ecoeco.db";
     public static final String TABLE_USUARIOS = "usuario";
     public static final String TABLE_PRODUCTOS= "producto";
@@ -16,10 +16,10 @@ public class DBHelper extends SQLiteOpenHelper {
     public static final String TABLE_DETALLE_PEDIDOS ="d_pedido";
     public static final String TABLE_USUARIO_PEDIDO = "clientepedido";
 
-
-    public DBHelper(@Nullable Context context) {
-        super(context, DATABASE_NOMBRE, null, DATABASE_VERSION);
+    public DBHelper(@Nullable Context context, @Nullable String name, @Nullable SQLiteDatabase.CursorFactory factory, int version) {
+        super(context, name, factory, version);
     }
+
 
     @Override
     public void onCreate(SQLiteDatabase db) {
@@ -61,6 +61,7 @@ public class DBHelper extends SQLiteOpenHelper {
                 " idvendedor integer, " +
                 " imagen text, " +
                 "FOREIGN KEY(id) REFERENCES " + TABLE_DETALLE_PEDIDOS +"(idproducto))");
+
     }
 
     @Override
