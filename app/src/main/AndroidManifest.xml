@@ -20,7 +20,7 @@
             android:name=".ProductosVentaActivity"
             android:exported="false" />
         <activity
-            android:name=".BuscadorActivity"
+            android:name=".buscador.BuscadorActivity"
             android:exported="false" />
         <activity
             android:name=".UsuarioNoRegistrado"

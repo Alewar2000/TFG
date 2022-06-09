@@ -77,7 +77,17 @@ public class Usuario {
     }
 
     public boolean isNull(){
-        if (nombre.equals("")||apellidos.equals("")||correo.equals("")||password.equals("")){
+        if (nombre.equals("")||apellidos.equals("")||password.equals("")){
+            return false;
+        } else {
+            return true;
+        }
+
+
+    }
+
+    public boolean isNullCorreo(){
+        if (nombre.equals("")||apellidos.equals("")||correo==null||password.equals("")){
             return false;
         } else {
             return true;

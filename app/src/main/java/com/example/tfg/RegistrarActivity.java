@@ -10,11 +10,17 @@ import android.widget.Toast;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 
+import com.example.tfg.bbdd.daoUsuario;
+
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
+
 public class RegistrarActivity extends AppCompatActivity implements View.OnClickListener {
     EditText correo, pass, nombre, apellido;
     Button btnRegistrar;
     ImageButton atras;
-    daoUsuario daoUsuario;
+    com.example.tfg.bbdd.daoUsuario daoUsuario;
+
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -41,14 +47,22 @@ public class RegistrarActivity extends AppCompatActivity implements View.OnClick
                 onBackPressed();
                 break;
             case R.id.btnRegistrar:
+                Pattern pat = Pattern.compile("([a-z0-9]+(\\.?[a-z0-9])*)+@(([a-z]+)\\.([a-z]+))+");
+                Matcher mather = pat.matcher(correo.getText().toString());
                 Usuario u = new Usuario();
-                u.setCorreo(correo.getText().toString());
+                if (mather.find() == true) {
+                    u.setCorreo(correo.getText().toString());
+                } else {
+                    Toast.makeText(this, "Correo invalido", Toast.LENGTH_SHORT).show();
+                }
                 u.setNombre(nombre.getText().toString());
                 u.setApellidos(apellido.getText().toString());
                 u.setPassword(pass.getText().toString());
                 if (!u.isNull()){
                     Toast.makeText(this, "Campos vacios", Toast.LENGTH_SHORT).show();
-                }else if (daoUsuario.insertarUsuario(u)){
+                }else if(!u.isNullCorreo()){
+                    Toast.makeText(this, "Correo invalido", Toast.LENGTH_SHORT).show();
+                } else if (daoUsuario.insertarUsuario(u)){
                     Toast.makeText(this, "Registro exitoso", Toast.LENGTH_SHORT).show();
                 }else {
                     Toast.makeText(this, "El correo ya esta vinculado ha una cuenta", Toast.LENGTH_SHORT).show();
@@ -56,5 +70,11 @@ public class RegistrarActivity extends AppCompatActivity implements View.OnClick
                 break;
 
         }
+    }
+
+    public void insertarCorreo(){
+
+
+
     }
 }

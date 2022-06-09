@@ -3,15 +3,18 @@
   <component name="DesignSurface">
     <option name="filePathToZoomLevelMap">
       <map>
+        <entry key="..\:/Nuevos Proyectos Android/TFG/app/src/main/res/drawable/back.xml" value="0.138" />
         <entry key="..\:/Nuevos Proyectos Android/TFG/app/src/main/res/drawable/selector.xml" value="0.1" />
+        <entry key="..\:/Nuevos Proyectos Android/TFG/app/src/main/res/layout-land/activity_usuario_no_registrado.xml" value="0.1748610517315092" />
         <entry key="..\:/Nuevos Proyectos Android/TFG/app/src/main/res/layout/activity_buscador.xml" value="0.18" />
         <entry key="..\:/Nuevos Proyectos Android/TFG/app/src/main/res/layout/activity_cart.xml" value="0.1718683197947841" />
-        <entry key="..\:/Nuevos Proyectos Android/TFG/app/src/main/res/layout/activity_login.xml" value="0.1115140525838622" />
+        <entry key="..\:/Nuevos Proyectos Android/TFG/app/src/main/res/layout/activity_login.xml" value="0.2" />
         <entry key="..\:/Nuevos Proyectos Android/TFG/app/src/main/res/layout/activity_main.xml" value="0.1718683197947841" />
         <entry key="..\:/Nuevos Proyectos Android/TFG/app/src/main/res/layout/activity_product.xml" value="0.2" />
         <entry key="..\:/Nuevos Proyectos Android/TFG/app/src/main/res/layout/activity_producto_cart.xml" value="0.16032492518170158" />
         <entry key="..\:/Nuevos Proyectos Android/TFG/app/src/main/res/layout/activity_producto_info.xml" value="0.1718683197947841" />
-        <entry key="..\:/Nuevos Proyectos Android/TFG/app/src/main/res/layout/activity_register.xml" value="0.1718683197947841" />
+        <entry key="..\:/Nuevos Proyectos Android/TFG/app/src/main/res/layout/activity_productos_venta.xml" value="0.1699909338168631" />
+        <entry key="..\:/Nuevos Proyectos Android/TFG/app/src/main/res/layout/activity_register.xml" value="0.22" />
         <entry key="..\:/Nuevos Proyectos Android/TFG/app/src/main/res/layout/activity_user.xml" value="0.1718683197947841" />
         <entry key="..\:/Nuevos Proyectos Android/TFG/app/src/main/res/layout/activity_usuario_no_registrado.xml" value="0.22" />
         <entry key="..\:/Nuevos Proyectos Android/TFG/app/src/main/res/layout/fragment_home.xml" value="0.1718683197947841" />

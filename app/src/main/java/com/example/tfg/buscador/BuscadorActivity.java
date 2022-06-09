@@ -1,4 +1,4 @@
-package com.example.tfg;
+package com.example.tfg.buscador;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
@@ -7,6 +7,10 @@ import androidx.recyclerview.widget.RecyclerView;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.os.Bundle;
+
+import com.example.tfg.bbdd.DBHelper;
+import com.example.tfg.Producto;
+import com.example.tfg.R;
 
 import java.util.ArrayList;
 
@@ -46,6 +50,7 @@ public class BuscadorActivity extends AppCompatActivity {
                 productoa.setDescripcion(cursorProductos.getString(2));
                 productoa.setPrecio(cursorProductos.getInt(3));
                 //productoa.setImagen(cursorProductos.getString(6));
+
 
                 listaArrayProductos.add(productoa);
             }while (cursorProductos.moveToNext());

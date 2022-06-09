@@ -9,6 +9,8 @@ import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.os.Bundle;
 
+import com.example.tfg.bbdd.DBHelper;
+
 import java.util.ArrayList;
 
 public class ProductosVentaActivity extends AppCompatActivity {
@@ -29,7 +31,6 @@ public class ProductosVentaActivity extends AppCompatActivity {
         ProductosVentaAdapter adapter = new ProductosVentaAdapter(mostrarProductoUsuario());
 
         recyclerView.setAdapter(adapter);
-
     }
 
     public ArrayList<Producto> mostrarProductoUsuario(){

@@ -9,10 +9,13 @@ import android.widget.Toast;
 
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
+
+import com.example.tfg.bbdd.daoUsuario;
+
 public class LoginActivity extends AppCompatActivity implements View.OnClickListener {
     EditText correo, pass;
     Button btnEntrar, btnRegistrar;
-    daoUsuario daoUsuario;
+    com.example.tfg.bbdd.daoUsuario daoUsuario;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {

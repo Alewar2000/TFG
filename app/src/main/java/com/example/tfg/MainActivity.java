@@ -1,15 +1,15 @@
 package com.example.tfg;
 
 import android.content.Intent;
-import android.database.sqlite.SQLiteDatabase;
-import android.database.sqlite.SQLiteOpenHelper;
+import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.preference.PreferenceManager;
 import android.view.LayoutInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Button;
 
+import com.example.tfg.bbdd.DBHelper;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 
 import androidx.annotation.NonNull;
@@ -71,13 +71,6 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
 
 
-
-
-
-
-        Intent i = new Intent(MainActivity.this, JavaIntro.class);
-        startActivity(i);
-
         ImageCarousel carousel = findViewById(R.id.carousel);
 
         // Register lifecycle. For activity this will be lifecycle/getLifecycle() and for fragments it will be viewLifecycleOwner/getViewLifecycleOwner().
@@ -91,13 +84,14 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                         imageUrl = "https://img.freepik.com/vector-gratis/plantilla-banner-producto-100-ciento-natural-cesta-compra-verduras-organicas-frescas-tienda-alimentos-ecologicos-mercado-agricola-embalaje-diseno-publicitario-ilustracion-vectorial-plana_609547-165.jpg?w=2000"
                 )
         );
+
         list.add(
                 new CarouselItem(
                         imageUrl = "https://www.google.com/url?sa=i&url=https%3A%2F%2Fes.123rf.com%2Fphoto_64167576_banner-de-producto-ecol%25C3%25B3gico-con-personajes-de-verduras-de-dibujos-animados-aislado-sobre-fondo-amarill.html&psig=AOvVaw0I1aDfxOaqaADEdY9nmTn_&ust=1654331601110000&source=images&cd=vfe&ved=0CAwQjRxqFwoTCOCH39XvkPgCFQAAAAAdAAAAABAD"
                 )
         );
-        carousel.setCarouselListener(new CarouselListener() {
 
+        carousel.setCarouselListener(new CarouselListener() {
             @Nullable
             @Override
             public ViewBinding onCreateViewHolder(@NonNull LayoutInflater layoutInflater, @NonNull ViewGroup viewGroup) {
@@ -124,6 +118,20 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         });
 
         carousel.addData(list);
+    }
+
+    @Override
+    protected void onResume() {
+        SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(getBaseContext());
+        boolean previouslyStarted = prefs.getBoolean(getString(R.string.pref_previously_started), false);
+        if(!previouslyStarted) {
+            SharedPreferences.Editor edit = prefs.edit();
+            edit.putBoolean(getString(R.string.pref_previously_started), Boolean.TRUE);
+            edit.commit();
+            Intent i = new Intent(MainActivity.this, JavaIntro.class);
+            startActivity(i);
+        }
+        super.onResume();
     }
 
     @Override

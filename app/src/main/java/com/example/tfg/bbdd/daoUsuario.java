@@ -1,9 +1,11 @@
-package com.example.tfg;
+package com.example.tfg.bbdd;
 
 import android.content.ContentValues;
 import android.content.Context;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
+
+import com.example.tfg.Usuario;
 
 import java.util.ArrayList;
 

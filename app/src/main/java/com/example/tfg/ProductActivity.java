@@ -1,6 +1,5 @@
 package com.example.tfg;
 
-import androidx.activity.result.contract.ActivityResultContracts;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AlertDialog;
@@ -17,7 +16,6 @@ import android.media.MediaScannerConnection;
 import android.net.Uri;
 import android.os.Bundle;
 import android.os.Environment;
-import android.os.StrictMode;
 import android.provider.MediaStore;
 import android.util.Log;
 import android.view.MenuItem;
@@ -26,18 +24,17 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.ImageView;
-import android.widget.Toast;
 
+import com.example.tfg.bbdd.DBHelper;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 
 import java.io.File;
 
 public class ProductActivity extends AppCompatActivity {
 
-    private final String CARPETA_RAIZ="EcoEco/";
-    private final String RUTA_IMAGEN=CARPETA_RAIZ + "FotosEcoEco";
+    private final String CARPETA_RAIZ="/data/data/com.example.tfg/files/";
     final int COD_SELECCIONA = 10;
-    final int COD_FOTO =20;
+    final int COD_FOTO = 20;
 
 
     BottomNavigationView bottomNavigationView;
@@ -138,24 +135,15 @@ public class ProductActivity extends AppCompatActivity {
 
     private void tomarFotografia() {
 
-        File FileImage = new File(Environment.getDataDirectory(), RUTA_IMAGEN);
-        boolean creada = FileImage.exists();
         String nombreImagen="";
-        if (creada==false){
-            creada= FileImage.mkdir();
-        }
-        if (creada==true){
-            //nombreImagen = (System.currentTimeMillis()/1000)+ ".jpg";
-        }
         nombreImagen = (System.currentTimeMillis()/1000)+ ".jpg";
-        path = Environment.getDataDirectory()+File.separator+RUTA_IMAGEN+File.separator+nombreImagen;
-        path = "storage/emulated/0/DCIM/EcoEco/"+nombreImagen;
+        path = CARPETA_RAIZ+nombreImagen;
+        File FileImage = new File(path);
 
-        File miImagen = new File(path);
         Uri uri = FileProvider.getUriForFile(
                 this,
                 BuildConfig.APPLICATION_ID + "." + getLocalClassName() + ".provider",
-                miImagen);
+                FileImage);
         Intent intentt = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
         intentt.putExtra(MediaStore.EXTRA_OUTPUT, uri);
 
@@ -167,7 +155,6 @@ public class ProductActivity extends AppCompatActivity {
     protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
         if (resultCode==RESULT_OK){
-
             switch (requestCode){
                 case COD_SELECCIONA:
                     Uri miPath = data.getData();
@@ -181,10 +168,8 @@ public class ProductActivity extends AppCompatActivity {
                             Log.i("Ruta de almacenamiento","Path: " + path);
                         }
                     });
-
                     Bitmap bitmap = BitmapFactory.decodeFile(path);
                     imagen.setImageBitmap(bitmap);
-
                     break;
             }
 
