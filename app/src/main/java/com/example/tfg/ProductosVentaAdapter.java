@@ -5,15 +5,17 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import java.util.ArrayList;
 
-public class ProductosVentaAdapter extends RecyclerView.Adapter<ProductosVentaAdapter.ProductoViewHolder>{
+public class ProductosVentaAdapter extends RecyclerView.Adapter<ProductosVentaAdapter.ProductoViewHolder> implements View.OnClickListener {
 
     ArrayList<Producto> listaProductos;
     public ProductosVentaAdapter(ArrayList<Producto> listaProductos){
@@ -35,9 +37,9 @@ public class ProductosVentaAdapter extends RecyclerView.Adapter<ProductosVentaAd
         holder.nombre.setText(listaProductos.get(position).getNombre());
         holder.descripcion.setText(listaProductos.get(position).getDescripcion());
         holder.precio.setText(listaProductos.get(position).getPrecio().toString());
-
         Drawable image = Drawable.createFromPath(listaProductos.get(position).getImagen());
         holder.imagen.setImageDrawable(image);
+
     }
 
     @Override
@@ -45,11 +47,16 @@ public class ProductosVentaAdapter extends RecyclerView.Adapter<ProductosVentaAd
         return listaProductos.size();
     }
 
-    public class ProductoViewHolder extends RecyclerView.ViewHolder {
+    @Override
+    public void onClick(View view) {
 
+    }
+
+    public class ProductoViewHolder extends RecyclerView.ViewHolder {
         TextView nombre, descripcion, precio;
         ImageView imagen;
-        Button btnEditar, BtnRemove;
+        ImageButton btnEditar, BtnRemove;
+
 
         public ProductoViewHolder(@NonNull View itemView) {
             super(itemView);
@@ -60,6 +67,10 @@ public class ProductosVentaAdapter extends RecyclerView.Adapter<ProductosVentaAd
             btnEditar = itemView.findViewById(R.id.btnEditar);
             BtnRemove = itemView.findViewById(R.id.btnRemove);
 
+
+
         }
-    }
+
+
+}
 }

@@ -1,20 +1,32 @@
 package com.example.tfg;
 
+import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.database.Cursor;
+import android.database.sqlite.SQLiteDatabase;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
+import android.view.KeyEvent;
 import android.view.LayoutInflater;
-import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.inputmethod.EditorInfo;
+import android.widget.Button;
+import android.widget.EditText;
+import android.widget.ImageButton;
+import android.widget.TextView;
 
 import com.example.tfg.bbdd.DBHelper;
+import com.example.tfg.buscador.BuscadorActivity;
+import com.example.tfg.buscador.ListaProductoAdapter;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 import androidx.viewbinding.ViewBinding;
 
 
@@ -26,50 +38,59 @@ import java.util.ArrayList;
 import java.util.List;
 
 
-public class MainActivity extends AppCompatActivity implements View.OnClickListener {
+public class MainActivity extends AppCompatActivity {
 
     BottomNavigationView bottomNavigationView;
     DBHelper dbHelper;
+    RecyclerView ultimos_productos;
+    EditText search;
+    ImageButton btn_search;
 
-
-
+    @SuppressLint("NonConstantResourceId")
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-        dbHelper = new DBHelper(this, "ecoeco.db",null,2);
+
+        search = findViewById(R.id.et_search);
+        btn_search = findViewById(R.id.btn_search);
+
+        dbHelper = new DBHelper(this, "ecoeco.db",null);
+
+        LinearLayoutManager layoutManager
+                = new LinearLayoutManager(getApplicationContext(), LinearLayoutManager.HORIZONTAL, false);
+        ultimos_productos = findViewById(R.id.ultimos_productos);
+        ultimos_productos.setLayoutManager(layoutManager);
+
+        UltimosProductosAdapter adapter = new UltimosProductosAdapter(mostrarultimosProducto());
+
+        ultimos_productos.setAdapter(adapter);
 
         bottomNavigationView = findViewById(R.id.bottom_navigator);
         bottomNavigationView.setSelectedItemId(R.id.home);
-
-        bottomNavigationView.setOnNavigationItemSelectedListener(new BottomNavigationView.OnNavigationItemSelectedListener() {
-            @Override
-            public boolean onNavigationItemSelected(@NonNull MenuItem item) {
-                switch (item.getItemId()){
-                    case R.id.home:
-                        return true;
-                    case R.id.user:
-                        startActivity(new Intent(getApplicationContext(), UserActivity.class));
-                        overridePendingTransition(0,0);
-                        finish();
-                        return true;
-                    case R.id.cart:
-                        startActivity(new Intent(getApplicationContext(), CartActivity.class));
-                        overridePendingTransition(0,0);
-                        finish();
-                        return true;
-                    case R.id.create:
-                        startActivity(new Intent(getApplicationContext(), ProductActivity.class));
-                        overridePendingTransition(0,0);
-                        finish();
-                        return true;
-                }
-
-                return false;
+        bottomNavigationView.setOnNavigationItemSelectedListener(item -> {
+            switch (item.getItemId()){
+                case R.id.home:
+                    return true;
+                case R.id.user:
+                    startActivity(new Intent(getApplicationContext(), UserActivity.class));
+                    overridePendingTransition(0,0);
+                    finish();
+                    return true;
+                case R.id.cart:
+                    startActivity(new Intent(getApplicationContext(), CartActivity.class));
+                    overridePendingTransition(0,0);
+                    finish();
+                    return true;
+                case R.id.create:
+                    startActivity(new Intent(getApplicationContext(), ProductActivity.class));
+                    overridePendingTransition(0,0);
+                    finish();
+                    return true;
             }
+
+            return false;
         });
-
-
 
         ImageCarousel carousel = findViewById(R.id.carousel);
 
@@ -87,7 +108,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
         list.add(
                 new CarouselItem(
-                        imageUrl = "https://www.google.com/url?sa=i&url=https%3A%2F%2Fes.123rf.com%2Fphoto_64167576_banner-de-producto-ecol%25C3%25B3gico-con-personajes-de-verduras-de-dibujos-animados-aislado-sobre-fondo-amarill.html&psig=AOvVaw0I1aDfxOaqaADEdY9nmTn_&ust=1654331601110000&source=images&cd=vfe&ved=0CAwQjRxqFwoTCOCH39XvkPgCFQAAAAAdAAAAABAD"
+                        imageUrl = "https://www.eroski.es/wp-content/uploads/2017/05/OG-ecolo%CC%81gicos_ES-1.jpg"
                 )
         );
 
@@ -108,6 +129,11 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                 Intent ia = new Intent(MainActivity.this, JavaIntro.class);
                 startActivity(ia);
             }
+            if (i==0){
+                Intent izz = new Intent(MainActivity.this, BuscadorActivity.class);
+                startActivity(izz);
+            }
+
             }
             @Override
             public void onLongClick(int i, @NonNull CarouselItem carouselItem) {
@@ -118,6 +144,16 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         });
 
         carousel.addData(list);
+
+        btn_search.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(MainActivity.this, BuscadorActivity.class);
+                intent.putExtra("busqueda", search.getText().toString());
+                startActivity(intent);
+            }
+        });
+
     }
 
     @Override
@@ -134,9 +170,34 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         super.onResume();
     }
 
-    @Override
-    public void onClick(View v) {
-        Intent i = new Intent(MainActivity.this, LoginActivity.class);
-        startActivity(i);
+    public ArrayList<Producto> mostrarultimosProducto(){
+        DBHelper dbHelper = new DBHelper(this, "ecoeco.db", null);
+        SQLiteDatabase db = dbHelper.getWritableDatabase();
+
+        ArrayList<Producto> listaArrayProductos = new ArrayList<Producto>();
+        Producto productoa = null;
+        Cursor cursorProductos = null;
+
+        cursorProductos = db.rawQuery("SELECT * FROM producto ORDER BY id DESC LIMIT 5", null);
+
+        if (cursorProductos.moveToNext()){
+            do {
+                productoa = new Producto();
+                productoa.setId(cursorProductos.getInt(0));
+                productoa.setNombre(cursorProductos.getString(1));
+                productoa.setDescripcion(cursorProductos.getString(2));
+                productoa.setPrecio(cursorProductos.getInt(3));
+                productoa.setImagen(cursorProductos.getString(6));
+
+
+                listaArrayProductos.add(productoa);
+            }while (cursorProductos.moveToNext());
+
+
+        }
+        cursorProductos.close();
+
+        return listaArrayProductos;
     }
+
 }

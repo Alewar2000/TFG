@@ -1,50 +1,59 @@
 package com.example.tfg;
-
 import android.os.Bundle;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
-import com.github.appintro.AppIntro;
+import com.github.appintro.AppIntro2;
 import com.github.appintro.AppIntroFragment;
 import com.github.appintro.AppIntroPageTransformerType;
 
 
-public class JavaIntro extends AppIntro {
+public class JavaIntro extends AppIntro2 {
+
+
+    @Override
+    protected void onPageSelected(int position) {
+        super.onPageSelected(position);
+    }
+
+    @Override
+    protected int getLayoutId() {
+        return super.getLayoutId();
+    }
 
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
 
-        addSlide(AppIntroFragment.newInstance("Welcome!",
-                "This is a demo example in java of AppIntro library, with a custom background on each slide!",
-                R.drawable.logo2));
+        addSlide(AppIntroFragment.newInstance("Bienvenido a EcoEco",
+                "",
+                R.drawable.logo2,
+                getResources().getColor(R.color.green)
+        ));
 
-        addSlide(AppIntroFragment.newInstance(
-                "Clean App Intros",
-                "This library offers developers the ability to add clean app intros at the start of their apps.",
-                R.drawable.logo_facebook
+        addSlide(AppIntroFragment.newInstance("Compra todo tipo de productos",
+                "Totalmente eco-friendly",
+                R.drawable.intro1,
+                getResources().getColor(R.color.yellow)
+
         ));
 
         addSlide(AppIntroFragment.newInstance(
-                "Simple, yet Customizable",
-                "The library offers a lot of customization, while keeping it simple for those that like simple.",
-                R.drawable.logo_google
+                "Vende tus productos de una manera sencilla y rapida",
+                "Pública y personaliza tus productos, con un control sencillo de estos",
+                R.drawable.intro2,
+                getResources().getColor(R.color.colorPrimary)
         ));
 
-        addSlide(AppIntroFragment.newInstance(
-                "Explore",
-                "Feel free to explore the rest of the library demo!",
-                R.drawable.logo_twitter
-        ));
 
         // Fade Transition
-        setTransformer(AppIntroPageTransformerType.Fade.INSTANCE);
+        setTransformer(AppIntroPageTransformerType.Zoom.INSTANCE);
 
         // Show/hide status bar
-        showStatusBar(true);
+        showStatusBar(false);
 
         //Speed up or down scrolling
-        setScrollDurationFactor(2);
+        setScrollDurationFactor(3);
 
         //Enable the color "fade" animation between two slides (make sure the slide implements SlideBackgroundColorHolder)
         setColorTransitionsEnabled(true);

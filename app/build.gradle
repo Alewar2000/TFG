@@ -46,8 +46,9 @@ dependencies {
 
     implementation 'org.imaginativeworld.whynotimagecarousel:whynotimagecarousel:2.1.0'
     implementation 'com.airbnb.android:lottie:5.2.0'
-
-
+    implementation 'com.squareup.picasso:picasso:2.5.2'
 
 }
+
+
 

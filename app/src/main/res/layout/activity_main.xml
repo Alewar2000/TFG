@@ -1,109 +1,131 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    android:id="@+id/container"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    >
+    android:orientation="vertical"
+    tools:context=".UserActivity">
 
-
-    <ImageButton
-        android:id="@+id/imageButton2"
-        android:layout_width="57dp"
-        android:layout_height="50dp"
-        android:layout_marginTop="20dp"
-        android:layout_marginEnd="24dp"
-        android:backgroundTint="#00FFFFFF"
-        android:scaleType="centerCrop"
-        android:src="@drawable/carro"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="1.0"
-        app:layout_constraintStart_toEndOf="@+id/searchView"
-        app:layout_constraintTop_toTopOf="parent" />
-
-
-    <SearchView
-        android:id="@+id/searchView"
-        android:layout_width="194dp"
-        android:layout_height="35dp"
-        android:layout_marginTop="24dp"
-        android:layout_marginEnd="92dp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toTopOf="parent">
-
-    </SearchView>
-
-    <ImageView
-        android:id="@+id/imageView4"
-        android:layout_width="91dp"
-        android:layout_height="69dp"
-        android:layout_marginStart="24dp"
-        android:layout_marginTop="16dp"
-        app:layout_constraintEnd_toStartOf="@+id/searchView"
-        app:layout_constraintHorizontal_bias="0.0"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:srcCompat="@drawable/logo2" />
-
-    <com.google.android.material.bottomnavigation.BottomNavigationView
+    <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:id="@+id/bottom_navigator"
-        app:layout_constraintBottom_toBottomOf="parent"
-        tools:layout_editor_absoluteX="16dp"
-        app:itemBackground="@color/colorPrimary"
-        app:itemTextColor="@drawable/selector"
-        app:itemIconTint="@drawable/selector"
-        app:menu="@menu/menu"
+        android:layout_height="90dp"
+        android:background="@drawable/degrade"
+        android:orientation="horizontal">
+
+        <ImageView
+            android:id="@+id/imageView4"
+            android:layout_width="91dp"
+            android:layout_height="69dp"
+            android:layout_marginLeft="15dp"
+            android:layout_marginTop="15dp"
+            android:cropToPadding="false"
+            app:srcCompat="@drawable/logo2"
+            tools:layout_editor_absoluteX="24dp"
+            tools:layout_editor_absoluteY="16dp" />
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="10dp"
+            android:layout_marginTop="25dp"
+            android:layout_marginRight="10dp"
+            android:background="@drawable/backwithborder"
+            android:orientation="horizontal">
+
+            <EditText
+                android:id="@+id/et_search"
+                android:layout_width="191dp"
+                android:layout_height="45dp"
+                android:layout_gravity="center_vertical"
+                android:layout_marginLeft="10dp"
+                android:layout_weight="1"
+                android:backgroundTint="#00FFFFFF"
+                android:elegantTextHeight="true"
+                android:ems="10"
+                android:hint="Buscar en ecoeco.es"
+                android:inputType="textPersonName"
+                android:paddingLeft="8dp" />
+
+            <ImageButton
+                android:id="@+id/btn_search"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="8dp"
+                android:layout_marginRight="5dp"
+                android:layout_weight="1"
+                android:background="@drawable/button_rounded"
+                app:srcCompat="@drawable/ic_baseline_search_24" />
+
+        </LinearLayout>
+
+    </LinearLayout>
+
+    <ScrollView
+        android:id="@+id/scrollView"
+        android:layout_width="match_parent"
+        android:layout_height="617dp"
 
         >
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+
+
+            <org.imaginativeworld.whynotimagecarousel.ImageCarousel
+                android:id="@+id/carousel"
+                android:layout_width="match_parent"
+                android:layout_height="256dp"
+                tools:layout_editor_absoluteY="143dp">
+
+            </org.imaginativeworld.whynotimagecarousel.ImageCarousel>
+
+            <ImageView
+                android:id="@+id/imageView9"
+                android:layout_width="match_parent"
+                android:layout_height="119dp"
+                app:srcCompat="@drawable/banner_2" />
+
+
+            <TextView
+                android:id="@+id/tv_recientes"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="15dp"
+                android:layout_marginTop="15dp"
+                android:layout_marginBottom="15dp"
+                android:text="Añadido Recientemente"
+                android:textSize="24sp"
+                android:textStyle="bold" />
+
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/ultimos_productos"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="15dp"
+                android:layout_marginRight="15dp"
+                tools:layout_editor_absoluteY="422dp" />
+
+
+        </LinearLayout>
+
+
+    </ScrollView>
+
+    <com.google.android.material.bottomnavigation.BottomNavigationView
+        android:id="@+id/bottom_navigator"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_gravity="bottom"
+        android:foregroundGravity="bottom"
+        app:itemBackground="@color/colorPrimary"
+        app:itemIconTint="@drawable/selector"
+
+        app:itemTextColor="@drawable/selector"
+        app:menu="@menu/menu">
+
     </com.google.android.material.bottomnavigation.BottomNavigationView>
 
-    <org.imaginativeworld.whynotimagecarousel.ImageCarousel
-        android:id="@+id/carousel"
-        android:layout_width="match_parent"
-        android:layout_height="256dp"
-        android:layout_marginTop="144dp"
-        app:layout_constraintBottom_toTopOf="@+id/recyclerView2"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.0"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="1.0" >
-
-    </org.imaginativeworld.whynotimagecarousel.ImageCarousel>
-
-    <ImageView
-        android:id="@+id/imageView9"
-        android:layout_width="434dp"
-        android:layout_height="119dp"
-        android:layout_marginBottom="4dp"
-        app:layout_constraintBottom_toTopOf="@+id/bottom_navigator"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.521"
-        app:layout_constraintStart_toStartOf="parent"
-        app:srcCompat="@drawable/banner_2" />
-
-    <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/recyclerView2"
-        android:layout_width="410dp"
-        android:layout_height="318dp"
-        app:layout_constraintBottom_toTopOf="@+id/imageView9"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent" />
-
-    <ImageView
-        android:id="@+id/imageView10"
-        android:layout_width="413dp"
-        android:layout_height="94dp"
-        android:layout_marginTop="40dp"
-        android:foregroundGravity="fill_horizontal|top|left|bottom|center_vertical|clip_horizontal|center|fill_vertical|clip_vertical|right|center_horizontal|fill"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.0"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/searchView"
-        app:srcCompat="@drawable/banners_ucrania" />
-
-
-</androidx.constraintlayout.widget.ConstraintLayout>
+</LinearLayout>

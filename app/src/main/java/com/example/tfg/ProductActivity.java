@@ -9,6 +9,7 @@ import androidx.core.content.FileProvider;
 import android.content.ContentValues;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
@@ -27,8 +28,12 @@ import android.widget.ImageView;
 
 import com.example.tfg.bbdd.DBHelper;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
+import com.squareup.picasso.Picasso;
 
 import java.io.File;
+import java.io.FileOutputStream;
+import java.io.IOException;
+import java.io.OutputStream;
 
 public class ProductActivity extends AppCompatActivity {
 
@@ -44,7 +49,7 @@ public class ProductActivity extends AppCompatActivity {
     EditText etnombre, etprecio, etcantidad, etdescripcion;
     ImageView imagen;
     String path;
-    String Stringuri;
+    String pathsSqlite;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -139,6 +144,7 @@ public class ProductActivity extends AppCompatActivity {
         nombreImagen = (System.currentTimeMillis()/1000)+ ".jpg";
         path = CARPETA_RAIZ+nombreImagen;
         File FileImage = new File(path);
+        pathsSqlite = path;
 
         Uri uri = FileProvider.getUriForFile(
                 this,
@@ -157,9 +163,15 @@ public class ProductActivity extends AppCompatActivity {
         if (resultCode==RESULT_OK){
             switch (requestCode){
                 case COD_SELECCIONA:
-                    Uri miPath = data.getData();
-                    imagen.setImageURI(miPath);
-                    Stringuri = miPath.toString();
+                    Uri imageUri = data.getData();
+                    try {
+                        Bitmap bitmap = MediaStore.Images.Media.getBitmap(this.getContentResolver(), imageUri);
+                        persistImage(bitmap);
+                    } catch (IOException e) {
+                        e.printStackTrace();
+                    }
+                    imagen.setImageURI(imageUri);
+                    //Stringuri = imageUri.toString();
                     break;
                 case COD_FOTO:
                     MediaScannerConnection.scanFile(this, new String[]{path}, null, new MediaScannerConnection.OnScanCompletedListener() {
@@ -169,7 +181,10 @@ public class ProductActivity extends AppCompatActivity {
                         }
                     });
                     Bitmap bitmap = BitmapFactory.decodeFile(path);
+                    //Picasso.with(this).load(path).resize(400,400).into(imagen);
+                    imagen.setRotation(90);
                     imagen.setImageBitmap(bitmap);
+
                     break;
             }
 
@@ -177,14 +192,31 @@ public class ProductActivity extends AppCompatActivity {
         }
     }
 
+
+    private void persistImage(Bitmap bitmap) {
+        String nombreImagen="";
+        nombreImagen = (System.currentTimeMillis()/1000)+ ".jpg";
+        File imageFile = new File(CARPETA_RAIZ, nombreImagen);
+        pathsSqlite = CARPETA_RAIZ + nombreImagen;
+        OutputStream os;
+        try {
+            os = new FileOutputStream(imageFile);
+            bitmap.compress(Bitmap.CompressFormat.JPEG, 100, os);
+            os.flush();
+            os.close();
+        } catch (Exception e) {
+
+        }
+    }
+
     public void añadirProducto(){
-        dbHelper = new DBHelper(this, "ecoeco.db",null,2);
+        dbHelper = new DBHelper(this, "ecoeco.db",null);
         SQLiteDatabase db = dbHelper.getWritableDatabase();
         String nombre = etnombre.getText().toString();
         Integer precio = Integer.parseInt(etprecio.getText().toString());
         Integer unidades = Integer.parseInt(etcantidad.getText().toString());
         String descripcion = etdescripcion.getText().toString();
-        String imagen = Stringuri;
+        String imagen = pathsSqlite;
         Producto producto = new Producto();
         producto.setNombre(nombre);
         producto.setPrecio(precio);

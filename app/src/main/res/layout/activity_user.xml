@@ -1,189 +1,205 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:orientation="vertical"
     tools:context=".UserActivity">
 
-    <Button
-        android:id="@+id/btnLogin14"
-        android:layout_width="309dp"
-        android:layout_height="48dp"
-        android:layout_marginTop="20dp"
-        android:background="@drawable/button_rounded"
-        android:text="Mis pagos"
-        android:textAlignment="textStart"
-        app:icon="@drawable/ic_baseline_arrow_forward_ios_24"
-        app:iconGravity="end"
+    <ScrollView
+        android:id="@+id/scrollView"
+        android:layout_width="match_parent"
+        android:layout_height="707dp"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.727"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/btnLogin13" />
+        app:layout_constraintTop_toTopOf="@id/bottom_navigator">
 
-    <Button
-        android:id="@+id/btnLogin13"
-        android:layout_width="309dp"
-        android:layout_height="48dp"
-        android:layout_marginTop="20dp"
-        android:background="@drawable/button_rounded"
-        android:text="Direcciones"
-        android:textAlignment="textStart"
-        app:icon="@drawable/ic_baseline_arrow_forward_ios_24"
-        app:iconGravity="end"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/btnLogin12" />
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            tools:context=".UserActivity">
 
-    <Button
-        android:id="@+id/btnLogin12"
-        android:layout_width="309dp"
-        android:layout_height="48dp"
-        android:layout_marginTop="36dp"
-        android:background="@drawable/button_rounded"
-        android:text="Datos de la cuenta"
-        android:textAlignment="textStart"
-        app:icon="@drawable/ic_baseline_arrow_forward_ios_24"
-        app:iconGravity="end"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/textView10" />
+            <Button
+                android:id="@+id/btnLogin14"
+                android:layout_width="309dp"
+                android:layout_height="48dp"
+                android:layout_marginTop="20dp"
+                android:background="@drawable/button_rounded"
+                android:text="Mis pagos"
+                android:textAlignment="textStart"
+                app:icon="@drawable/ic_baseline_arrow_forward_ios_24"
+                app:iconGravity="end"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/btnLogin13" />
 
-    <TextView
-        android:id="@+id/textView10"
-        android:layout_width="205dp"
-        android:layout_height="19dp"
-        android:layout_marginTop="36dp"
-        android:text="Configuración de la cuenta"
-        android:textSize="16sp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.271"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/btn_productos_venta" />
+            <Button
+                android:id="@+id/btnLogin13"
+                android:layout_width="309dp"
+                android:layout_height="48dp"
+                android:layout_marginTop="20dp"
+                android:background="@drawable/button_rounded"
+                android:text="Direcciones"
+                android:textAlignment="textStart"
+                app:icon="@drawable/ic_baseline_arrow_forward_ios_24"
+                app:iconGravity="end"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/btnLogin12" />
 
-    <Button
-        android:id="@+id/btn_productos_venta"
-        android:layout_width="309dp"
-        android:layout_height="48dp"
-        android:layout_marginTop="32dp"
-        android:background="@drawable/button_rounded"
-        android:text="Tus productos a la venta"
-        android:textAlignment="textStart"
-        app:icon="@drawable/ic_baseline_arrow_forward_ios_24"
-        app:iconGravity="end"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/textView9" />
+            <Button
+                android:id="@+id/btnLogin12"
+                android:layout_width="309dp"
+                android:layout_height="48dp"
+                android:layout_marginTop="36dp"
+                android:background="@drawable/button_rounded"
+                android:text="Datos de la cuenta"
+                android:textAlignment="textStart"
+                app:icon="@drawable/ic_baseline_arrow_forward_ios_24"
+                app:iconGravity="end"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/textView10" />
 
-    <TextView
-        android:id="@+id/textView9"
-        android:layout_width="193dp"
-        android:layout_height="19dp"
-        android:layout_marginTop="40dp"
-        android:text="Vendedor"
-        android:textSize="16sp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.201"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/btnLogin10" />
+            <TextView
+                android:id="@+id/textView10"
+                android:layout_width="205dp"
+                android:layout_height="19dp"
+                android:layout_marginTop="36dp"
+                android:text="Configuración de la cuenta"
+                android:textSize="16sp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.271"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/btn_productos_venta" />
 
-    <Button
-        android:id="@+id/btnLogin10"
-        android:layout_width="309dp"
-        android:layout_height="48dp"
-        android:layout_marginTop="32dp"
-        android:background="@drawable/button_rounded"
-        android:text="Reseñas"
-        android:textAlignment="textStart"
-        app:icon="@drawable/ic_baseline_arrow_forward_ios_24"
-        app:iconGravity="end"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/btnLogin9" />
+            <Button
+                android:id="@+id/btn_productos_venta"
+                android:layout_width="309dp"
+                android:layout_height="48dp"
+                android:layout_marginTop="32dp"
+                android:background="@drawable/button_rounded"
+                android:text="Tus productos a la venta"
+                android:textAlignment="textStart"
+                app:icon="@drawable/ic_baseline_arrow_forward_ios_24"
+                app:iconGravity="end"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/textView9" />
 
-    <Button
-        android:id="@+id/btnLogin9"
-        android:layout_width="309dp"
-        android:layout_height="48dp"
-        android:layout_marginTop="32dp"
-        android:background="@drawable/button_rounded"
-        android:text="Mis pedidos"
-        android:textAlignment="textStart"
-        app:icon="@drawable/ic_baseline_arrow_forward_ios_24"
-        app:iconGravity="end"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/textView8" />
+            <TextView
+                android:id="@+id/textView9"
+                android:layout_width="193dp"
+                android:layout_height="19dp"
+                android:layout_marginTop="40dp"
+                android:text="Vendedor"
+                android:textSize="16sp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.201"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/btnLogin10" />
 
-    <TextView
-        android:id="@+id/textView8"
-        android:layout_width="95dp"
-        android:layout_height="19dp"
-        android:layout_marginStart="56dp"
-        android:layout_marginTop="180dp"
-        android:text="Pedidos"
-        android:textSize="16sp"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+            <Button
+                android:id="@+id/btnLogin10"
+                android:layout_width="309dp"
+                android:layout_height="48dp"
+                android:layout_marginTop="32dp"
+                android:background="@drawable/button_rounded"
+                android:text="Reseñas"
+                android:textAlignment="textStart"
+                app:icon="@drawable/ic_baseline_arrow_forward_ios_24"
+                app:iconGravity="end"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/btnLogin9" />
 
-    <TextView
-        android:id="@+id/textView7"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="108dp"
-        android:layout_marginEnd="172dp"
-        android:text="Alvaro"
-        android:textSize="34sp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+            <Button
+                android:id="@+id/btnLogin9"
+                android:layout_width="309dp"
+                android:layout_height="48dp"
+                android:layout_marginTop="32dp"
+                android:background="@drawable/button_rounded"
+                android:text="Mis pedidos"
+                android:textAlignment="textStart"
+                app:icon="@drawable/ic_baseline_arrow_forward_ios_24"
+                app:iconGravity="end"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/textView8" />
 
-    <TextView
-        android:id="@+id/tv_nombre2"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="44dp"
-        android:layout_marginTop="108dp"
-        android:text="Hola"
-        android:textSize="34sp"
-        app:layout_constraintEnd_toStartOf="@+id/textView7"
-        app:layout_constraintHorizontal_bias="0.3"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+            <TextView
+                android:id="@+id/textView8"
+                android:layout_width="95dp"
+                android:layout_height="19dp"
+                android:layout_marginStart="56dp"
+                android:layout_marginTop="180dp"
+                android:text="Pedidos"
+                android:textSize="16sp"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
 
-    <Button
-        android:id="@+id/loginmain2"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="300dp"
-        android:layout_marginTop="16dp"
-        android:text="Login"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+            <TextView
+                android:id="@+id/textView7"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="108dp"
+                android:layout_marginEnd="172dp"
+                android:text="Alvaro"
+                android:textSize="34sp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
 
-    <ImageView
-        android:id="@+id/imageView5"
-        android:layout_width="91dp"
-        android:layout_height="69dp"
-        android:layout_marginTop="24dp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.081"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:srcCompat="@drawable/logo2" />
+            <TextView
+                android:id="@+id/tv_nombre2"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="44dp"
+                android:layout_marginTop="108dp"
+                android:text="Hola"
+                android:textSize="34sp"
+                app:layout_constraintEnd_toStartOf="@+id/textView7"
+                app:layout_constraintHorizontal_bias="0.3"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
 
+            <Button
+                android:id="@+id/loginmain2"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="300dp"
+                android:layout_marginTop="16dp"
+                android:text="Login"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <ImageView
+                android:id="@+id/imageView5"
+                android:layout_width="91dp"
+                android:layout_height="69dp"
+                android:layout_marginTop="24dp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.081"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                app:srcCompat="@drawable/logo2" />
+
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+    </ScrollView>
 
     <com.google.android.material.bottomnavigation.BottomNavigationView
+        android:id="@+id/bottom_navigator"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:id="@+id/bottom_navigator"
-        app:layout_constraintBottom_toBottomOf="parent"
-        tools:layout_editor_absoluteX="16dp"
+        android:layout_gravity="bottom|fill_horizontal"
         app:itemBackground="@color/colorPrimary"
-        app:itemTextColor="@drawable/selector"
         app:itemIconTint="@drawable/selector"
-        app:menu="@menu/menu"
+        app:itemTextColor="@drawable/selector"
+        app:menu="@menu/menu">
 
-        >
     </com.google.android.material.bottomnavigation.BottomNavigationView>
 
-
-</androidx.constraintlayout.widget.ConstraintLayout>
+</LinearLayout>

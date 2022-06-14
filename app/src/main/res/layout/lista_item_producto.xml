@@ -1,52 +1,66 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.cardview.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:layout_marginLeft="8dp"
+    android:layout_marginTop="4dp"
+    android:layout_marginRight="8dp"
+    android:layout_marginBottom="4dp"
+    android:background="@drawable/backwithborder"
+
+    app:cardCornerRadius="8dp"
+    app:cardUseCompatPadding="true">
 
 
-    <TextView
-        android:id="@+id/viewNombre"
-        android:layout_width="218dp"
-        android:layout_height="37dp"
-        android:layout_marginTop="16dp"
-        android:layout_marginEnd="44dp"
-        android:textSize="24sp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="1.0"
-        app:layout_constraintStart_toEndOf="@+id/imagenlista"
-        app:layout_constraintTop_toTopOf="parent"
-        tools:text="hoal" />
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content">
 
-    <TextView
-        android:id="@+id/viewDescripcion"
-        android:layout_width="216dp"
-        android:layout_height="53dp"
-        android:layout_marginTop="12dp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.281"
-        app:layout_constraintStart_toEndOf="@+id/imagenlista"
-        app:layout_constraintTop_toBottomOf="@+id/viewNombre" />
 
-    <TextView
-        android:id="@+id/viewPrecio"
-        android:layout_width="132dp"
-        android:layout_height="56dp"
-        android:layout_marginTop="12dp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.534"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/viewDescripcion" />
+        <androidx.cardview.widget.CardView
+            android:id="@+id/cardView"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_margin="5dp"
+            android:layout_marginStart="12dp"
+            android:layout_marginTop="16dp"
+            android:elevation="10dp"
+            app:cardCornerRadius="8dp">
 
-    <ImageView
-        android:id="@+id/imagenlista"
-        android:layout_width="131dp"
-        android:layout_height="116dp"
-        android:layout_marginStart="4dp"
-        android:layout_marginTop="16dp"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:srcCompat="@drawable/noimage" />
+            <ImageView
+                android:id="@+id/imagenlista"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                app:srcCompat="@drawable/noimage" />
+        </androidx.cardview.widget.CardView>
 
-</androidx.constraintlayout.widget.ConstraintLayout>
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+
+            <TextView
+                android:id="@+id/viewNombre"
+                android:layout_width="218dp"
+                android:layout_height="37dp"
+                android:layout_marginTop="16dp"
+                android:layout_marginEnd="44dp"
+                android:textSize="24sp" />
+
+            <TextView
+                android:id="@+id/viewDescripcion"
+                android:layout_width="216dp"
+                android:layout_height="53dp"
+                android:layout_marginTop="12dp" />
+
+            <TextView
+                android:id="@+id/viewPrecio"
+                android:layout_width="132dp"
+                android:layout_height="56dp"
+                android:layout_marginLeft="10dp"
+                android:layout_marginTop="12dp" />
+        </LinearLayout>
+
+    </LinearLayout>
+</androidx.cardview.widget.CardView>

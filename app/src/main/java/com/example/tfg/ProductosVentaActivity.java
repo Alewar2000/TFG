@@ -1,7 +1,6 @@
 package com.example.tfg;
 
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.recyclerview.widget.DividerItemDecoration;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -22,11 +21,8 @@ public class ProductosVentaActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_productos_venta);
 
-        recyclerView = findViewById(R.id.lista_productos);
-        LinearLayoutManager llm = new LinearLayoutManager(this);
-        DividerItemDecoration dividerItemDecoration = new DividerItemDecoration(this,llm.getOrientation());
-        recyclerView.setLayoutManager(llm);
-        recyclerView.addItemDecoration(dividerItemDecoration);
+        recyclerView = findViewById(R.id.recycler_ventas);
+        recyclerView.setLayoutManager(new LinearLayoutManager(this));
 
         ProductosVentaAdapter adapter = new ProductosVentaAdapter(mostrarProductoUsuario());
 
@@ -34,14 +30,14 @@ public class ProductosVentaActivity extends AppCompatActivity {
     }
 
     public ArrayList<Producto> mostrarProductoUsuario(){
-        DBHelper dbHelper = new DBHelper(this, "ecoeco.db", null, 2);
+        DBHelper dbHelper = new DBHelper(this, "ecoeco.db", null);
         SQLiteDatabase db = dbHelper.getWritableDatabase();
 
         ArrayList<Producto> listaArrayProductos = new ArrayList<Producto>();
         Producto productoa = null;
         Cursor cursorProductos = null;
 
-        cursorProductos = db.rawQuery("SELECT * FROM producto where id=6", null);
+        cursorProductos = db.rawQuery("SELECT * FROM producto where idvendedor=6", null);
 
         if (cursorProductos.moveToNext()){
             do {
@@ -50,14 +46,14 @@ public class ProductosVentaActivity extends AppCompatActivity {
                 productoa.setNombre(cursorProductos.getString(1));
                 productoa.setDescripcion(cursorProductos.getString(2));
                 productoa.setPrecio(cursorProductos.getInt(3));
-                //productoa.setImagen(cursorProductos.getString(6));
+                productoa.setImagen(cursorProductos.getString(6));
 
                 listaArrayProductos.add(productoa);
             }while (cursorProductos.moveToNext());
 
 
         }
-        //cursorProductos.close();
+        cursorProductos.close();
 
         return listaArrayProductos;
     }
