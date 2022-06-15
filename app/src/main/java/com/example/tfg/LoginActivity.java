@@ -1,7 +1,9 @@
 package com.example.tfg;
 
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.preference.PreferenceManager;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -16,6 +18,7 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
     EditText correo, pass;
     Button btnEntrar, btnRegistrar;
     com.example.tfg.bbdd.daoUsuario daoUsuario;
+
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -42,6 +45,10 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
                     Toast.makeText(this, "Campos vacios", Toast.LENGTH_SHORT).show();
                 }else if (daoUsuario.login(c,p)==1){
                     Usuario ux = daoUsuario.getUsuario(c,p);
+                    SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(getBaseContext());
+                    SharedPreferences.Editor editor = prefs.edit();
+                    editor.putInt("usuariologin", ux.getId());
+                    editor.commit();
                     Intent i2 = new Intent(LoginActivity.this, MainActivity.class);
                     i2.putExtra("Id",ux.getId());
                     startActivity(i2);

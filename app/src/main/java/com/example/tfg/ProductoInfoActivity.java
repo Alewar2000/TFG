@@ -3,9 +3,11 @@ package com.example.tfg;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.os.Bundle;
+import android.preference.PreferenceManager;
 import android.widget.ImageView;
 import android.widget.TextView;
 
@@ -33,6 +35,9 @@ public class ProductoInfoActivity extends AppCompatActivity {
         tv_precio = findViewById(R.id.tv_precio_info);
         tv_descripcion = findViewById(R.id.tv_descripcion_info);
 
+        SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(getBaseContext());
+        Integer usurping = prefs.getInt("usuariologin", 0);
+
         bottomNavigationView = findViewById(R.id.bottom_navigator);
         bottomNavigationView.setOnNavigationItemSelectedListener(item -> {
             switch (item.getItemId()){
@@ -42,9 +47,15 @@ public class ProductoInfoActivity extends AppCompatActivity {
                     finish();
                     return true;
                 case R.id.user:
-                    startActivity(new Intent(getApplicationContext(), UserActivity.class));
-                    overridePendingTransition(0,0);
-                    finish();
+                    if (usurping==0){
+                        startActivity(new Intent(getApplicationContext(), UsuarioNoRegistrado.class));
+                        overridePendingTransition(0,0);
+                        finish();
+                    }else {
+                        startActivity(new Intent(getApplicationContext(), UserActivity.class));
+                        overridePendingTransition(0,0);
+                        finish();
+                    }
                     return true;
                 case R.id.cart:
                     startActivity(new Intent(getApplicationContext(), CartActivity.class));

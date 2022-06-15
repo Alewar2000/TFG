@@ -15,6 +15,7 @@ public class DBHelper extends SQLiteOpenHelper {
     public static final String TABLE_PEDIDO= "pedido";
     public static final String TABLE_DETALLE_PEDIDOS ="d_pedido";
     public static final String TABLE_USUARIO_PEDIDO = "clientepedido";
+    public static final String TABLE_CART = "shopping_cart";
 
     public DBHelper(@Nullable Context context, @Nullable String name, @Nullable SQLiteDatabase.CursorFactory factory) {
         super(context, name, factory, DATABASE_VERSION);
@@ -61,6 +62,14 @@ public class DBHelper extends SQLiteOpenHelper {
                 " idvendedor integer, " +
                 " imagen text, " +
                 "FOREIGN KEY(id) REFERENCES " + TABLE_DETALLE_PEDIDOS +"(idproducto))");
+
+        db.execSQL("create table if not exists " + TABLE_CART +
+                "(id integer primary key autoincrement," +
+                " idcliente text," +
+                " precio integer," +
+                " fecha text," +
+                "FOREIGN KEY(id) REFERENCES " + TABLE_USUARIO_PEDIDO +"(idpedidou), "+
+                "FOREIGN KEY(id) REFERENCES " + TABLE_DETALLE_PEDIDOS +"(idpedido))");
 
     }
 

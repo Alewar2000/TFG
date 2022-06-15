@@ -9,6 +9,7 @@ import androidx.core.content.FileProvider;
 import android.content.ContentValues;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.graphics.Bitmap;
@@ -17,6 +18,7 @@ import android.media.MediaScannerConnection;
 import android.net.Uri;
 import android.os.Bundle;
 import android.os.Environment;
+import android.preference.PreferenceManager;
 import android.provider.MediaStore;
 import android.util.Log;
 import android.view.MenuItem;
@@ -65,6 +67,9 @@ public class ProductActivity extends AppCompatActivity {
         btnImagen = findViewById(R.id.btnCargarImagen);
         imagen = findViewById(R.id.ImagenId);
 
+        SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(getBaseContext());
+        Integer usurping = prefs.getInt("usuariologin", 0);
+
 
         bottomNavigationView.setOnNavigationItemSelectedListener(new BottomNavigationView.OnNavigationItemSelectedListener() {
             @Override
@@ -76,9 +81,15 @@ public class ProductActivity extends AppCompatActivity {
                         finish();
                         return true;
                     case R.id.user:
-                        startActivity(new Intent(getApplicationContext(), UserActivity.class));
-                        overridePendingTransition(0,0);
-                        finish();
+                        if (usurping==0){
+                            startActivity(new Intent(getApplicationContext(), UsuarioNoRegistrado.class));
+                            overridePendingTransition(0,0);
+                            finish();
+                        }else {
+                            startActivity(new Intent(getApplicationContext(), UserActivity.class));
+                            overridePendingTransition(0,0);
+                            finish();
+                        }
                         return true;
                     case R.id.cart:
                         startActivity(new Intent(getApplicationContext(), CartActivity.class));

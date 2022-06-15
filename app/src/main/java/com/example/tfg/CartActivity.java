@@ -4,7 +4,9 @@ import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.preference.PreferenceManager;
 import android.view.MenuItem;
 
 import com.google.android.material.bottomnavigation.BottomNavigationView;
@@ -15,7 +17,8 @@ public class CartActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_cart);
-
+        SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(getBaseContext());
+        Integer usurping = prefs.getInt("usuariologin", 0);
 
         bottomNavigationView = findViewById(R.id.bottom_navigator);
         bottomNavigationView.setSelectedItemId(R.id.cart);
@@ -30,9 +33,15 @@ public class CartActivity extends AppCompatActivity {
                         finish();
                         return true;
                     case R.id.user:
-                        startActivity(new Intent(getApplicationContext(), UserActivity.class));
-                        overridePendingTransition(0,0);
-                        finish();
+                        if (usurping==0){
+                            startActivity(new Intent(getApplicationContext(), UsuarioNoRegistrado.class));
+                            overridePendingTransition(0,0);
+                            finish();
+                        }else {
+                            startActivity(new Intent(getApplicationContext(), UserActivity.class));
+                            overridePendingTransition(0,0);
+                            finish();
+                        }
                         return true;
                     case R.id.cart:
                         return true;

@@ -46,12 +46,14 @@ public class MainActivity extends AppCompatActivity {
     EditText search;
     ImageButton btn_search;
 
+
     @SuppressLint("NonConstantResourceId")
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-
+        SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(getBaseContext());
+        Integer usurping = prefs.getInt("usuariologin", 0);
         search = findViewById(R.id.et_search);
         btn_search = findViewById(R.id.btn_search);
 
@@ -73,9 +75,15 @@ public class MainActivity extends AppCompatActivity {
                 case R.id.home:
                     return true;
                 case R.id.user:
-                    startActivity(new Intent(getApplicationContext(), UserActivity.class));
-                    overridePendingTransition(0,0);
-                    finish();
+                    if (usurping==0){
+                        startActivity(new Intent(getApplicationContext(), UsuarioNoRegistrado.class));
+                        overridePendingTransition(0,0);
+                        finish();
+                    }else {
+                        startActivity(new Intent(getApplicationContext(), UserActivity.class));
+                        overridePendingTransition(0,0);
+                        finish();
+                    }
                     return true;
                 case R.id.cart:
                     startActivity(new Intent(getApplicationContext(), CartActivity.class));
@@ -163,6 +171,7 @@ public class MainActivity extends AppCompatActivity {
         if(!previouslyStarted) {
             SharedPreferences.Editor edit = prefs.edit();
             edit.putBoolean(getString(R.string.pref_previously_started), Boolean.TRUE);
+            edit.putInt("usuariologin", 0);
             edit.commit();
             Intent i = new Intent(MainActivity.this, JavaIntro.class);
             startActivity(i);

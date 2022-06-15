@@ -4,9 +4,11 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import android.content.SharedPreferences;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.os.Bundle;
+import android.preference.PreferenceManager;
 
 import com.example.tfg.bbdd.DBHelper;
 
@@ -24,12 +26,15 @@ public class ProductosVentaActivity extends AppCompatActivity {
         recyclerView = findViewById(R.id.recycler_ventas);
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
 
+
         ProductosVentaAdapter adapter = new ProductosVentaAdapter(mostrarProductoUsuario());
 
         recyclerView.setAdapter(adapter);
     }
 
     public ArrayList<Producto> mostrarProductoUsuario(){
+        SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(getBaseContext());
+        Integer usurping = prefs.getInt("usuariologin", 0);
         DBHelper dbHelper = new DBHelper(this, "ecoeco.db", null);
         SQLiteDatabase db = dbHelper.getWritableDatabase();
 
@@ -37,7 +42,7 @@ public class ProductosVentaActivity extends AppCompatActivity {
         Producto productoa = null;
         Cursor cursorProductos = null;
 
-        cursorProductos = db.rawQuery("SELECT * FROM producto where idvendedor=6", null);
+        cursorProductos = db.rawQuery("SELECT * FROM producto where idvendedor="+usurping, null);
 
         if (cursorProductos.moveToNext()){
             do {
